@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import AuthContext from '../auth'
 import { GlobalStoreContext } from '../store'
 import HomeScreen from './HomeScreen'
+// import YouTubePlayerScreen from './YouTubePlayerScreen';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
@@ -17,7 +18,8 @@ import Typography from '@mui/material/Typography';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
-import { TextField } from '@mui/material'
+import { Icon, TextField } from '@mui/material'
+import SegmentIcon from '@mui/icons-material/Segment';
 
 export default function UserScreen() {
     const { auth } = useContext(AuthContext);
@@ -35,7 +37,7 @@ export default function UserScreen() {
 
     const leftComponent = <HomeScreen/>;
     const handleHouseClick = () => {
-        leftComponent = <HomeScreen />
+        // leftComponent = <HomeScreen />
     }
     const handleListSearch = () => {
 
@@ -46,16 +48,16 @@ export default function UserScreen() {
     const sortByMenu = (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id="sort-by-menu"
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
+            // anchorOrigin={{
+            //     vertical: 'top',
+            //     horizontal: 'right',
+            // }}
+            // id="sort-by-menu"
+            // keepMounted
+            // transformOrigin={{
+            //     vertical: 'top',
+            //     horizontal: 'right',
+            // }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
@@ -77,16 +79,31 @@ export default function UserScreen() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     >
-                        <HomeIcon onClick={handleHouseClick} style={{ textDecoration: 'none', color: 'white' }}/>
-                        <PeopleIcon onClick={handleListSearch} style={{ textDecoration: 'none', color: 'white' }}/>
-                        <PersonSearchIcon onClick={handleUserSearch} style={{ textDecoration: 'none', color: 'white' }}/>
+                        <IconButton onClick={handleHouseClick}>
+                            <HomeIcon style={{ textDecoration: 'none', color: 'white' }}/>
+                        </IconButton>
+                        <IconButton onClick={handleListSearch}>
+                            <PeopleIcon style={{ textDecoration: 'none', color: 'white' }}/>
+                        </IconButton>
+                        <IconButton onClick={handleUserSearch}>
+                            <PersonSearchIcon style={{ textDecoration: 'none', color: 'white' }}/>
+                        </IconButton>
+                        
+                        
                         
                         {/* <Link onClick={handleHouseClick} style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</Link> */}
                         {/* <Link onClick={handleListSearch} style={{ textDecoration: 'none', color: 'white' }} to='/'></Link> */}
                         {/* <Link onClick={handleUserSearch} style={{ textDecoration: 'none', color: 'white' }} to='/'></Link> */}
 
                         <TextField id="outlined-basic" label="Search" variant="outlined" style={{bgcolor:'white', color: 'white' }}/>
+
+                        Sort By
+                        <IconButton onClick={handleProfileMenuOpen}>
+                            <SegmentIcon />
+                                
+                        </IconButton>
                         {sortByMenu}
+                        
                     </Typography>
                 </Toolbar>
             </AppBar>

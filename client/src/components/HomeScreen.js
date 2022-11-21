@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
 import MUIDeleteModal from './MUIDeleteModal'
-// import YouTubePlayerScreen from './YouTubePlayerScreen'
 
 import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
@@ -47,18 +46,11 @@ const HomeScreen = () => {
             </Fab>
             </List>;
     }
-    let player = "";
-    if(store.currentList !== null){
-        // player = <YouTubePlayerScreen/>;
-    }
     return (
         <div id="playlist-selector">
             <Box sx={{bgcolor:"background.paper"}} id="list-selector-list">
                 {
                     listCard
-                }
-                {
-                    player
                 }
                 <MUIDeleteModal />
             </Box>
