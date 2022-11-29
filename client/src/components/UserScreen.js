@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import PeopleIcon from '@mui/icons-material/People';
+import Groups2Icon from '@mui/icons-material/Groups2';
 import HomeIcon from '@mui/icons-material/Home';
 import { Icon, TextField } from '@mui/material'
 import SegmentIcon from '@mui/icons-material/Segment';
@@ -79,30 +79,30 @@ export default function UserScreen() {
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     > */}
-                        <IconButton onClick={handleHouseClick}>
-                            <HomeIcon style={{ textDecoration: 'none', color: 'white' }}/>
-                        </IconButton>
-                        <IconButton onClick={handleListSearch}>
-                            <PeopleIcon style={{ textDecoration: 'none', color: 'white' }}/>
-                        </IconButton>
-                        <IconButton onClick={handleUserSearch}>
-                            <PersonSearchIcon style={{ textDecoration: 'none', color: 'white' }}/>
-                        </IconButton>
-                        
-                        
-                        
-                        {/* <Link onClick={handleHouseClick} style={{ textDecoration: 'none', color: 'white' }} to='/'>⌂</Link> */}
-                        {/* <Link onClick={handleListSearch} style={{ textDecoration: 'none', color: 'white' }} to='/'></Link> */}
-                        {/* <Link onClick={handleUserSearch} style={{ textDecoration: 'none', color: 'white' }} to='/'></Link> */}
+                        <Box>
+                            <IconButton onClick={handleHouseClick} >
+                                <HomeIcon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }} />
+                            </IconButton>
+                            <IconButton onClick={handleListSearch} >
+                                <Groups2Icon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }}/>
+                            </IconButton>
+                            <IconButton onClick={handleUserSearch} >
+                                <PersonSearchIcon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }}/>
+                            </IconButton>
+                        </Box>
 
-                        <TextField id="outlined-basic" label="Search" variant="outlined" style={{bgcolor:'white', color: 'white' }}/>
+                        <Box sx={{transform:"translate(80%, 0%)"}}>
+                            <TextField id="outlined-basic" label="Search" size="small" variant="outlined" style={{bgcolor:'white', color: 'white', height:"55x", width:"300px" }} />
+                        </Box>
 
-                        Sort By
-                        <IconButton onClick={handleProfileMenuOpen}>
-                            <SegmentIcon />
-                                
-                        </IconButton>
-                        {sortByMenu}
+                        <Box sx={{transform:"translate(620%, 9%)"}}>
+                            Sort By
+                            <IconButton onClick={handleProfileMenuOpen}>
+                                <SegmentIcon />
+                                    
+                            </IconButton>
+                            {sortByMenu}
+                        </Box>
                         
                     {/* </Typography> */}
                 </Toolbar>
