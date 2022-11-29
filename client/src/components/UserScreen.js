@@ -71,14 +71,14 @@ export default function UserScreen() {
 
     return(
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" sx={{ height: "59px", display: { xs: 'none', md: 'flex' } }}>
+            <AppBar position="static" sx={{ height: "52px", display: { xs: 'none', md: 'flex' } }}>
                 <Toolbar>
-                    <Typography                        
+                    {/* <Typography                        
                         variant="h4"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
-                    >
+                    > */}
                         <IconButton onClick={handleHouseClick}>
                             <HomeIcon style={{ textDecoration: 'none', color: 'white' }}/>
                         </IconButton>
@@ -104,7 +104,7 @@ export default function UserScreen() {
                         </IconButton>
                         {sortByMenu}
                         
-                    </Typography>
+                    {/* </Typography> */}
                 </Toolbar>
             </AppBar>
             {

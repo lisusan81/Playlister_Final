@@ -6,6 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -54,6 +56,19 @@ function ListCard(props) {
         store.markListForDeletion(id);
     }
 
+    function handleLikeList(event, id) {
+        // event.stopPropagation();
+        // let _id = event.target.id;
+        // _id = ("" + _id).substring("delete-list-".length);
+        // store.markListForDeletion(id);
+    }
+    function handleDislikeList(event, id) {
+        // event.stopPropagation();
+        // let _id = event.target.id;
+        // _id = ("" + _id).substring("delete-list-".length);
+        // store.markListForDeletion(id);
+    }
+
     function handleKeyPress(event) {
         if (event.code === "Enter") {
             let id = event.target.id.substring("list-".length);
@@ -78,7 +93,7 @@ function ListCard(props) {
             id={idNamePair._id}
             key={idNamePair._id}
             sx={{borderRadius:"25px", p: "10px", bgcolor: '#8000F00F', marginTop: '15px', display: 'flex', p: 1 }}
-            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '48pt' }}
+            style={{transform:"translate(1%,0%)", width: '98%', fontSize: '35pt' }}
             button
             onClick={(event) => {
                 handleLoadList(event, idNamePair._id)
@@ -87,14 +102,28 @@ function ListCard(props) {
             <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
             <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                    <EditIcon style={{fontSize:'48pt'}} />
+                    <EditIcon style={{fontSize:'30pt'}} />
                 </IconButton>
             </Box>
             <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
                     }} aria-label='delete'>
-                    <DeleteIcon style={{fontSize:'48pt'}} />
+                    <DeleteIcon style={{fontSize:'30pt'}} />
+                </IconButton>
+            </Box>
+            <Box sx={{ p: 1 }}>
+                <IconButton onClick={(event) => {
+                        handleLikeList(event, idNamePair._id)
+                    }}>
+                    <ThumbUpOffAltIcon style={{fontSize:'30pt'}}/>
+                </IconButton>
+            </Box>
+            <Box sx={{ p: 1 }}>
+                <IconButton onClick={(event) => {
+                        handleDislikeList(event, idNamePair._id)
+                    }}>
+                    <ThumbDownOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
             </Box>
         </ListItem>
