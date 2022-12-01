@@ -73,6 +73,8 @@ body {
 }
 
 #edit-toolbar {
+  position: absolute;
+  left: -15%;
   background-color: transparent;
   transform: translate(41%, 0%);
 }

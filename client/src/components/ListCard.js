@@ -76,6 +76,7 @@ function ListCard(props) {
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
+
         // store.setCurrentList(id);
     }
 
@@ -138,6 +139,7 @@ function ListCard(props) {
             </Box>
             <Box sx={{ p: 2 }}>
                 {/* {cardPublishInfo} */}
+                {auth.user.username}
                 <IconButton onClick={(event) => {
                         handleOpenList(event, idNamePair._id)
                     }}>

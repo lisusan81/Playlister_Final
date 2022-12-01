@@ -5,6 +5,8 @@ import AddIcon from '@mui/icons-material/Add';
 import RedoIcon from '@mui/icons-material/Redo';
 import UndoIcon from '@mui/icons-material/Undo';
 import CloseIcon from '@mui/icons-material/HighlightOff';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import CopyAllIcon from '@mui/icons-material/CopyAll';
 
 /*
     This toolbar is a functional React component that
@@ -34,29 +36,36 @@ function EditToolbar() {
                 id='add-song-button'
                 onClick={handleAddNewSong}
                 variant="contained">
-                <AddIcon />
+                <AddIcon />Add Song
             </Button>
             <Button 
                 disabled={!store.canUndo()}
                 id='undo-button'
                 onClick={handleUndo}
                 variant="contained">
-                    <UndoIcon />
+                    <UndoIcon />Undo
             </Button>
             <Button 
                 disabled={!store.canRedo()}
                 id='redo-button'
                 onClick={handleRedo}
                 variant="contained">
-                    <RedoIcon />
+                    <RedoIcon />Redo
             </Button>
             <Button 
+                // disabled={!store.canRedo()}
+                id='duplicate-button'
+                // onClick={handleRedo}
+                variant="contained">
+                    <CopyAllIcon />Duplicate
+            </Button>
+            {/* <Button 
                 disabled={!store.canClose()}
                 id='close-button'
                 onClick={handleClose}
                 variant="contained">
                     <CloseIcon />
-            </Button>
+            </Button> */}
         </div>
     )
 }
