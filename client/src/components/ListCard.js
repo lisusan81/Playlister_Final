@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react'
 import { GlobalStoreContext } from '../store'
+import AuthContext from '../auth'
 import Box from '@mui/material/Box';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -18,6 +19,7 @@ import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 */
 function ListCard(props) {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair, selected } = props;
@@ -88,6 +90,10 @@ function ListCard(props) {
     if (store.isListNameEditActive) {
         cardStatus = true;
     }
+    let cardPublishInfo = "Published: ";
+    if(idNamePair.isPublished){
+        cardPublishInfo += "{idNamePair.publishDate}";
+    }
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -99,13 +105,11 @@ function ListCard(props) {
                 handleLoadList(event, idNamePair._id)
             }}
         >
-            <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-            <Box sx={{ p: 1 }}>
+            <Box sx={{ p: 1, flexGrow: 1 }}>
+                {idNamePair.name}
                 <IconButton onClick={handleToggleEdit} aria-label='edit'>
                     <EditIcon style={{fontSize:'30pt'}} />
                 </IconButton>
-            </Box>
-            <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
                     }} aria-label='delete'>
@@ -118,13 +122,14 @@ function ListCard(props) {
                     }}>
                     <ThumbUpOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
-            </Box>
-            <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleDislikeList(event, idNamePair._id)
                     }}>
                     <ThumbDownOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
+            </Box>
+            <Box sx={{ p: 1 }}>
+                {auth.user.username}
             </Box>
         </ListItem>
 

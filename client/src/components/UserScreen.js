@@ -5,6 +5,7 @@ import { useContext } from 'react'
 import AuthContext from '../auth'
 import { GlobalStoreContext } from '../store'
 import HomeScreen from './HomeScreen'
+import Statusbar from './Statusbar';
 // import YouTubePlayerScreen from './YouTubePlayerScreen';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -71,7 +72,7 @@ export default function UserScreen() {
 
     return(
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" sx={{ height: "52px", display: { xs: 'none', md: 'flex' } }}>
+            <AppBar position="static" sx={{ height: "57px", display: { xs: 'none', md: 'flex' } }}>
                 <Toolbar>
                     {/* <Typography                        
                         variant="h4"
@@ -110,6 +111,9 @@ export default function UserScreen() {
             {
                 leftComponent
             }
+            <Box>
+                <Statusbar />
+            </Box>
         </Box>
     )
 
