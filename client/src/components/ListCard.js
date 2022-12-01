@@ -9,6 +9,7 @@ import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
 import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -70,6 +71,13 @@ function ListCard(props) {
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
     }
+    function handleOpenList(event, id) {
+        // event.stopPropagation();
+        // let _id = event.target.id;
+        // _id = ("" + _id).substring("delete-list-".length);
+        // store.markListForDeletion(id);
+        // store.setCurrentList(id);
+    }
 
     function handleKeyPress(event) {
         if (event.code === "Enter") {
@@ -128,8 +136,13 @@ function ListCard(props) {
                     <ThumbDownOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
             </Box>
-            <Box sx={{ p: 1 }}>
-                {auth.user.username}
+            <Box sx={{ p: 2 }}>
+                {/* {cardPublishInfo} */}
+                <IconButton onClick={(event) => {
+                        handleOpenList(event, idNamePair._id)
+                    }}>
+                    <KeyboardDoubleArrowDownIcon />
+                </IconButton>
             </Box>
         </ListItem>
 

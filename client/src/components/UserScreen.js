@@ -6,6 +6,7 @@ import AuthContext from '../auth'
 import { GlobalStoreContext } from '../store'
 import HomeScreen from './HomeScreen'
 import Statusbar from './Statusbar';
+import WorkspaceScreen from './WorkspaceScreen';
 // import YouTubePlayerScreen from './YouTubePlayerScreen';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
@@ -36,9 +37,12 @@ export default function UserScreen() {
         setAnchorEl(null);
     };
 
-    const leftComponent = <HomeScreen/>;
+    let leftComponent = <HomeScreen/>;
+    if(store.currentList !== null){
+        leftComponent = <WorkspaceScreen />
+    }
     const handleHouseClick = () => {
-        // leftComponent = <HomeScreen />
+        leftComponent = <HomeScreen />
     }
     const handleListSearch = () => {
 
