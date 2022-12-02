@@ -101,7 +101,11 @@ function ListCard(props) {
     }
     let cardPublishInfo = "Published: ";
     if(idNamePair.isPublished){
-        cardPublishInfo += "{idNamePair.publishDate}";
+        cardPublishInfo += idNamePair.publishDate;
+    }
+    let username = "By: "
+    if(auth.loggedIn){
+        username += auth.user.username;
     }
     let cardElement =
         <ListItem
@@ -139,7 +143,7 @@ function ListCard(props) {
             </Box>
             <Box sx={{ p: 2 }}>
                 {/* {cardPublishInfo} */}
-                {auth.user.username}
+                {username}
                 <IconButton onClick={(event) => {
                         handleOpenList(event, idNamePair._id)
                     }}>

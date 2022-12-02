@@ -59,13 +59,13 @@ function EditToolbar() {
                 variant="contained">
                     <CopyAllIcon />Duplicate
             </Button>
-            {/* <Button 
+            <Button 
                 disabled={!store.canClose()}
                 id='close-button'
                 onClick={handleClose}
                 variant="contained">
                     <CloseIcon />
-            </Button> */}
+            </Button>
         </div>
     )
 }
