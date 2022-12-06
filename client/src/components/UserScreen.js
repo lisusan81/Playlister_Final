@@ -7,7 +7,7 @@ import { GlobalStoreContext } from '../store'
 import HomeScreen from './HomeScreen'
 import Statusbar from './Statusbar';
 import WorkspaceScreen from './WorkspaceScreen';
-// import YouTubePlayerScreen from './YouTubePlayerScreen';
+import YouTubePlayerScreen from './YouTubePlayerScreen';
 
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import AppBar from '@mui/material/AppBar';
@@ -115,9 +115,14 @@ export default function UserScreen() {
             {
                 leftComponent
             }
+            <Box sx={{right: "20%"}}>
+                        <YouTubePlayerScreen />
+                    </Box>
+            
             <Box>
                 <Statusbar />
             </Box>
+            
         </Box>
     )
 

@@ -3,13 +3,15 @@ import { React } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { AuthContextProvider } from './auth';
 import { GlobalStoreContextProvider } from './store'
+import { Box } from '@mui/system';
 import {
     AppBanner,
     HomeWrapper,
     LoginScreen,
     RegisterScreen,
     Statusbar,
-    WorkspaceScreen
+    WorkspaceScreen,
+    YouTubePlayerScreen
 } from './components'
 /*
     This is our application's top-level component.
@@ -33,6 +35,7 @@ const App = () => {
                         <Route path="/login/" exact component={LoginScreen} />
                         <Route path="/register/" exact component={RegisterScreen} />
                     </Switch>
+                    
                     <Statusbar />
                 </GlobalStoreContextProvider>
             </AuthContextProvider>

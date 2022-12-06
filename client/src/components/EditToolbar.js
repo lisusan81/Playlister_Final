@@ -7,6 +7,7 @@ import UndoIcon from '@mui/icons-material/Undo';
 import CloseIcon from '@mui/icons-material/HighlightOff';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
+import PublishIcon from '@mui/icons-material/Publish';
 
 /*
     This toolbar is a functional React component that
@@ -28,6 +29,9 @@ function EditToolbar() {
     }
     function handleClose() {
         store.closeCurrentList();
+    }
+    function handlePublish() {
+        store.publishList();
     }
     return (
         <div id="edit-toolbar">
@@ -58,6 +62,13 @@ function EditToolbar() {
                 // onClick={handleRedo}
                 variant="contained">
                     <CopyAllIcon />Duplicate
+            </Button>
+            <Button 
+                // disabled={!store.canRedo()}
+                id='publish-button'
+                onClick={handlePublish}
+                variant="contained">
+                    <PublishIcon />Publish
             </Button>
             <Button 
                 disabled={!store.canClose()}

@@ -100,6 +100,9 @@ function ListCard(props) {
         cardStatus = true;
     }
     let cardPublishInfo = "Published: ";
+    // store.returnListById(idNamePair._id);
+    // console.log(store.publishListInfo);
+    // console.log(store.publishListInfo);
     if(idNamePair.isPublished){
         cardPublishInfo += idNamePair.publishDate;
     }
@@ -107,6 +110,7 @@ function ListCard(props) {
     if(auth.loggedIn){
         username += auth.user.username;
     }
+    let cardListensInfo = "Listens: ";
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -118,6 +122,7 @@ function ListCard(props) {
                 handleLoadList(event, idNamePair._id)
             }}
         >
+            <Box>
             <Box sx={{ p: 1, flexGrow: 1 }}>
                 {idNamePair.name}
                 <IconButton onClick={handleToggleEdit} aria-label='edit'>
@@ -129,6 +134,14 @@ function ListCard(props) {
                     <DeleteIcon style={{fontSize:'30pt'}} />
                 </IconButton>
             </Box>
+            <Box sx={{ p: 1, flexGrow: 1 }} style={{fontSize: '13pt' }}>
+                {username}
+            </Box>
+            <Box sx={{ p: 1, flexGrow: 1 }} style={{fontSize: '13pt' }}>
+                {cardPublishInfo}
+            </Box>
+            </Box>
+            
             <Box sx={{ p: 1 }}>
                 <IconButton onClick={(event) => {
                         handleLikeList(event, idNamePair._id)
@@ -143,7 +156,7 @@ function ListCard(props) {
             </Box>
             <Box sx={{ p: 2 }}>
                 {/* {cardPublishInfo} */}
-                {username}
+                {/* {username} */}
                 <IconButton onClick={(event) => {
                         handleOpenList(event, idNamePair._id)
                     }}>

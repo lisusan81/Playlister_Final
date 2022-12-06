@@ -75,9 +75,13 @@ export default function YouTubePlayerScreen() {
         }
     }
 
-    return <YouTube
-        videoId={playlist[currentSong]}
-        opts={playerOptions}
-        onReady={onPlayerReady}
-        onStateChange={onPlayerStateChange} />;
+    return (
+        <div id="youTubeScreen">
+            <YouTube
+                videoId={playlist[currentSong]}
+                opts={playerOptions}
+                onReady={onPlayerReady}
+                onStateChange={onPlayerStateChange} />
+        </div>
+        )
 }
