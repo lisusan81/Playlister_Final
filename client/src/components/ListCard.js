@@ -64,12 +64,14 @@ function ListCard(props) {
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
+        store.likeList(idNamePair._id);
     }
     function handleDislikeList(event, id) {
         // event.stopPropagation();
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
+        store.dislikeList(idNamePair._id);
     }
     function handleOpenList(event, id) {
         // event.stopPropagation();
@@ -152,11 +154,13 @@ function ListCard(props) {
                     }}>
                     <ThumbUpOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
+                {idNamePair.likes}
                 <IconButton onClick={(event) => {
                         handleDislikeList(event, idNamePair._id)
                     }}>
                     <ThumbDownOffAltIcon style={{fontSize:'30pt'}}/>
                 </IconButton>
+                {idNamePair.dislikes}
             </Box>
             <Box sx={{ p: 2 }}>
                 <IconButton onClick={(event) => {

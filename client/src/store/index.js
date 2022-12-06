@@ -32,7 +32,8 @@ export const GlobalStoreActionType = {
     EDIT_SONG: "EDIT_SONG",
     REMOVE_SONG: "REMOVE_SONG",
     HIDE_MODALS: "HIDE_MODALS",
-    SET_PUBLISH_LIST: "SET_PUBLISH_LIST"
+    SET_PUBLISH_LIST: "SET_PUBLISH_LIST",
+    SET_STATISTICS_LIST: "SET_STATISTICS_LIST"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -235,6 +236,20 @@ function GlobalStoreContextProvider(props) {
                     listIdMarkedForDeletion: null,
                     listMarkedForDeletion: null,
                     publishListInfo: payload
+                });
+            }
+            case GlobalStoreActionType.SET_STATISTICS_LIST: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: store.idNamePairs,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    publishListInfo: null
                 });
             }
             default:
@@ -494,6 +509,56 @@ function GlobalStoreContextProvider(props) {
                     // history.push("/playlist/" + playlist._id);
                 }
 
+                
+            }
+        }
+        updateList(id);
+    }
+
+    store.likeList = function(id) {
+        async function updateList(id) {
+            let response = await api.getPlaylistById(id);
+            if (response.data.success) {
+                let playlist = response.data.playlist;
+                
+                playlist.likes += 1;
+
+                async function updateWithNewLikes(playlist){
+                    response = await api.updatePlaylistById(playlist._id, playlist);
+                    console.log(response);
+                    if (response.data.success) {
+                        
+                        store.loadIdNamePairs();
+                    // history.push("/playlist/" + playlist._id);
+                    }
+                    console.log(response.data);
+                }
+                updateWithNewLikes(playlist);
+                
+            }
+        }
+        updateList(id);
+    }
+
+    store.dislikeList = function(id) {
+        async function updateList(id) {
+            let response = await api.getPlaylistById(id);
+            if (response.data.success) {
+                let playlist = response.data.playlist;
+                
+                playlist.dislikes += 1;
+
+                async function updateWithNewDislikes(playlist){
+                    response = await api.updatePlaylistById(playlist._id, playlist);
+                    console.log(response);
+                    if (response.data.success) {
+                        
+                        store.loadIdNamePairs();
+                    // history.push("/playlist/" + playlist._id);
+                    }
+                    console.log(response.data);
+                }
+                updateWithNewDislikes(playlist);
                 
             }
         }
