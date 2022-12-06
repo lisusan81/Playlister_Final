@@ -109,9 +109,10 @@ function ListCard(props) {
         cardPublishInfo += idNamePair.publishDate;
     }
     let username = "By: "
-    if(auth.loggedIn){
-        username += auth.user.username;
-    }
+    // if(auth.loggedIn){
+        
+    // }
+    username += idNamePair.ownerUsername;
     let cardListensInfo = "Listens: ";
     let cardElement =
         <ListItem
