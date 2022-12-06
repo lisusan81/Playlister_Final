@@ -472,8 +472,8 @@ function GlobalStoreContextProvider(props) {
     store.publishList = function() {
         const id = store.currentList._id;
         const date = new Date();
+        console.log(date);
         const currentDate = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
-        console.log("Publishing date" + currentDate);
 
         async function updateList(id) {
             let response = await api.getPlaylistById(id);

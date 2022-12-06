@@ -104,6 +104,8 @@ function ListCard(props) {
     // console.log(store.publishListInfo);
     // console.log(store.publishListInfo);
     if(idNamePair.isPublished){
+        // const date = idNamePair.publishDate;
+        // console.log(typeof date);
         cardPublishInfo += idNamePair.publishDate;
     }
     let username = "By: "

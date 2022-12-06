@@ -33,6 +33,9 @@ function EditToolbar() {
     function handlePublish() {
         store.publishList();
     }
+    function handleDuplicate() {
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    }
     return (
         <div id="edit-toolbar">
             <Button
@@ -59,7 +62,7 @@ function EditToolbar() {
             <Button 
                 // disabled={!store.canRedo()}
                 id='duplicate-button'
-                // onClick={handleRedo}
+                onClick={handleDuplicate}
                 variant="contained">
                     <CopyAllIcon />Duplicate
             </Button>
