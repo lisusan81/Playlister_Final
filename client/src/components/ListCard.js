@@ -171,6 +171,7 @@ function ListCard(props) {
             </Box>
         </ListItem>
 
+
     if (editActive) {
         cardElement =
             <TextField

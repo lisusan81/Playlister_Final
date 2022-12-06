@@ -604,6 +604,43 @@ function GlobalStoreContextProvider(props) {
         // NOW MAKE IT OFFICIAL
         store.updateCurrentList();
     }
+
+    store.sortByName = function() {
+        store.idNamePairs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+        
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+            payload: store.idNamePairs
+        });
+    }
+
+    store.sortByLikes = function(){
+        store.idNamePairs.sort(function(a,b) {return (a.likes < b.likes) ? 1 : ((b.likes < a.likes) ? -1 : 0);} );
+        
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+            payload: store.idNamePairs
+        });
+    }
+
+    store.sortByDislikes = function(){
+        store.idNamePairs.sort(function(a,b) {return (a.dislikes < b.dislikes) ? 1 : ((b.dislikes < a.dislikes) ? -1 : 0);} );
+        
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+            payload: store.idNamePairs
+        });
+    }
+
+    store.sortByListens = function() {
+        store.idNamePairs.sort(function(a,b) {return (a.listens < b.listens) ? 1 : ((b.listens < a.listens) ? -1 : 0);} );
+        
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+            payload: store.idNamePairs
+        });
+    }
+
     // THIS FUNCTION REMOVES THE SONG AT THE index LOCATION
     // FROM THE CURRENT LIST
     store.removeSong = function(index) {

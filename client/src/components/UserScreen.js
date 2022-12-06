@@ -37,6 +37,23 @@ export default function UserScreen() {
         setAnchorEl(null);
     };
 
+    function handleSortByName() {
+        store.sortByName();
+        handleMenuClose()
+    }
+
+    function handleSortByLikes() {
+        store.sortByLikes();
+        handleMenuClose()
+    }
+    function handleSortByDislikes() {
+        store.sortByDislikes()
+        handleMenuClose()
+    }
+    function handleSortByListens() {
+        store.sortByListens()
+        handleMenuClose()
+    }
     let leftComponent = <HomeScreen/>;
     if(store.currentList !== null){
         leftComponent = <WorkspaceScreen />
@@ -66,11 +83,11 @@ export default function UserScreen() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Name (A-Z)</MenuItem>
+            <MenuItem onClick={handleSortByName}>Name (A-Z)</MenuItem>
             <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Listens (High-Low)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Likes (High-Low)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Dislikes (High-Low)</MenuItem>
+            <MenuItem onClick={handleSortByListens}>Listens (High-Low)</MenuItem>
+            <MenuItem onClick={handleSortByLikes}>Likes (High-Low)</MenuItem>
+            <MenuItem onClick={handleSortByDislikes}>Dislikes (High-Low)</MenuItem>
         </Menu>
     );
 
