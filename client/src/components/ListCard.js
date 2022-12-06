@@ -113,6 +113,7 @@ function ListCard(props) {
         
     // }
     username += idNamePair.ownerUsername;
+
     let cardListensInfo = "Listens: ";
     let cardElement =
         <ListItem
@@ -158,8 +159,6 @@ function ListCard(props) {
                 </IconButton>
             </Box>
             <Box sx={{ p: 2 }}>
-                {/* {cardPublishInfo} */}
-                {/* {username} */}
                 <IconButton onClick={(event) => {
                         handleOpenList(event, idNamePair._id)
                     }}>

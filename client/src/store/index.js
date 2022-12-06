@@ -311,8 +311,7 @@ function GlobalStoreContextProvider(props) {
         let newListName = "Untitled" + (store.idNamePairs.length + 1);
         console.log("TYPE OF FALSE " + typeof false );
         console.log("TYPE OF EMPTY " + typeof "" );
-        console.log(auth.user.username);
-        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, "NULL");
+        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, "NULL", 0, 0, 0);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
             tps.clearAllTransactions();
