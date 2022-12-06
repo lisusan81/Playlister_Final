@@ -39,7 +39,7 @@ function SongCard(props) {
     }
     function handleClick(event) {
         // DOUBLE CLICK IS FOR SONG EDITING
-        if (event.detail === 2) {
+        if (event.detail === 2 && !store.currentList.isPublished) {
             console.log("double clicked");
             store.showEditSongModal(index, song);
         }
@@ -71,6 +71,7 @@ function SongCard(props) {
                 variant="contained"
                 id={"remove-song-" + index}
                 className="list-card-button"
+                disabled={store.currentList.isPublished}
                 onClick={handleRemoveSong}>{"\u2715"}</Button>
         </div>
     );
