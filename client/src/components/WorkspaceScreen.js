@@ -25,7 +25,7 @@ function WorkspaceScreen() {
         store.closeCurrentList();
     }
     function handleDuplicate() {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        store.duplicateList();
     }
     
     let modalJSX = "";

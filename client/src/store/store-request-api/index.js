@@ -36,6 +36,20 @@ export const createPlaylist = (newListName, newSongs, userEmail, userUsername, i
         listens: listens
     })
 }
+export const duplicatePlaylist = (newListName, newSongs, userEmail, userUsername, isPublished, publishDate, likes, dislikes, listens ) => {
+    return api.post(`/duplicateplaylist/`, {
+        // SPECIFY THE PAYLOAD
+        name: newListName,
+        songs: newSongs,
+        ownerEmail: userEmail,
+        ownerUsername: userUsername,
+        isPublished: isPublished,
+        publishDate: publishDate,
+        likes: likes,
+        dislikes: dislikes,
+        listens: listens
+    })
+}
 export const deletePlaylistById = (id) => api.delete(`/playlist/${id}`)
 export const getPlaylistById = (id) => api.get(`/playlist/${id}`)
 export const getAnyPlaylistById = (id) => api.get(`/playlistany/${id}`)
@@ -56,6 +70,7 @@ export const updateAnyPlaylistById = (id, playlist) => {
 
 const apis = {
     createPlaylist,
+    duplicatePlaylist,
     deletePlaylistById,
     getPlaylistById,
     getAnyPlaylistById,

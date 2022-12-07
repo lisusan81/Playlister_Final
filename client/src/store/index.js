@@ -461,11 +461,11 @@ function GlobalStoreContextProvider(props) {
     // moveItem, updateItem, updateCurrentList, undo, and redo
     store.setCurrentList = function (id) {
         async function asyncSetCurrentList(id) {
-            let response = await api.getPlaylistById(id);
+            let response = await api.getAnyPlaylistById(id);
             if (response.data.success) {
                 let playlist = response.data.playlist;
 
-                response = await api.updatePlaylistById(playlist._id, playlist);
+                response = await api.updateAnyPlaylistById(playlist._id, playlist);
                 if (response.data.success) {
                     storeReducer({
                         type: GlobalStoreActionType.SET_CURRENT_LIST,
@@ -477,6 +477,7 @@ function GlobalStoreContextProvider(props) {
         }
         asyncSetCurrentList(id);
     }
+    
    
     store.returnListById = function(id) {
         console.log("ID OF LIST TO PUBLISH " + id);
@@ -778,7 +779,7 @@ function GlobalStoreContextProvider(props) {
         date.setMonth(0,1);
         console.log(date)
 
-        const response = await api.createPlaylist(newListName, listToCopy.songs, auth.user.email, auth.user.username, false, date, 0, 0, 0);
+        const response = await api.duplicatePlaylist(newListName, listToCopy.songs, auth.user.email, auth.user.username, false, date, 0, 0, 0);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
             tps.clearAllTransactions();

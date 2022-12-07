@@ -137,7 +137,7 @@ function ListCard(props) {
                 </IconButton>
                 <IconButton onClick={(event) => {
                         handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete'>
+                    }} aria-label='delete' disabled={idNamePair.ownerEmail != auth.user.email}>
                     <DeleteIcon style={{fontSize:'30pt'}} />
                 </IconButton>
             </Box>
