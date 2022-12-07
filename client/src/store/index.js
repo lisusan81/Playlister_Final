@@ -33,7 +33,8 @@ export const GlobalStoreActionType = {
     REMOVE_SONG: "REMOVE_SONG",
     HIDE_MODALS: "HIDE_MODALS",
     SET_PUBLISH_LIST: "SET_PUBLISH_LIST",
-    SET_STATISTICS_LIST: "SET_STATISTICS_LIST"
+    SET_STATISTICS_LIST: "SET_STATISTICS_LIST",
+    SET_LEFT_COMPONENT: "SET_LEFT_COMPONENT"
 }
 
 // WE'LL NEED THIS TO PROCESS TRANSACTIONS
@@ -61,6 +62,7 @@ function GlobalStoreContextProvider(props) {
         listNameActive: false,
         listIdMarkedForDeletion: null,
         listMarkedForDeletion: null,
+        leftComponent: "homeScreen"
         // publishListInfo: null
     });
     const history = useHistory();
@@ -252,6 +254,22 @@ function GlobalStoreContextProvider(props) {
                     publishListInfo: null
                 });
             }
+            case GlobalStoreActionType.SET_LEFT_COMPONENT: {
+                return setStore({
+                    currentModal : CurrentModal.NONE,
+                    idNamePairs: payload.idNamePairs,
+                    currentList: store.currentList,
+                    currentSongIndex: -1,
+                    currentSong: null,
+                    newListCounter: store.newListCounter,
+                    listNameActive: false,
+                    listIdMarkedForDeletion: null,
+                    listMarkedForDeletion: null,
+                    publishListInfo: null,
+                    leftComponent: payload.leftSide
+                });
+            }
+            
             default:
                 return store;
         }
@@ -639,6 +657,96 @@ function GlobalStoreContextProvider(props) {
             type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
             payload: store.idNamePairs
         });
+    }
+
+    store.homeScreen = function() {
+        storeReducer({
+            type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+            payload: {
+                leftSide: "homeScreen",
+                idNamePairs: store.idNamePairs
+            }    
+        });
+        store.loadIdNamePairs();
+    }
+
+    store.listSearchIconClick = function() {
+        storeReducer({
+            type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+            payload: {
+                leftSide: "listSearch",
+                idNamePairs: []
+            }    
+        });
+        //const searchRequirement = 
+    }
+
+    store.userSearchIconClick = function() {
+        storeReducer({
+            type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+            payload: {
+                leftSide: "userSearch",
+                idNamePairs: []
+            }    
+        });
+        //const searchRequirement = 
+    }
+
+    store.listSearch = function(searchRequirement){
+        async function asyncListSearch() {
+            let response = await api.getPlaylists();
+            if (response.data.success) {
+                let playlist = response.data.data;
+
+                const result = playlist.filter(element => {
+                    if (element.name.toLowerCase().includes(searchRequirement.toLowerCase()) && element.isPublished) {
+                      return true;
+                    }
+                  });
+                  
+                  console.log(result)  
+
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+                    payload: {
+                        idNamePairs: result,
+                        leftSide: "listSearch"
+                    }
+                });
+                
+            }
+        }
+        asyncListSearch();
+    }
+
+    store.userSearch = function(searchRequirement){
+        async function asyncUserSearch() {
+            let response = await api.getPlaylists();
+            if (response.data.success) {
+                let playlist = response.data.data;
+
+                const result = playlist.filter(element => {
+                    if (element.ownerUsername.toLowerCase().includes(searchRequirement.toLowerCase()) && element.isPublished) {
+                      return true;
+                    }
+                  });
+                console.log(result);  
+
+                storeReducer({
+                    type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+                    payload: {
+                        idNamePairs: result,
+                        leftSide: "userSearch"
+                    }
+                });
+                
+            }
+        }
+        asyncUserSearch();
+    }
+
+    store.getLeftComponent = function() {
+        return store.leftComponent;
     }
 
     // THIS FUNCTION REMOVES THE SONG AT THE index LOCATION

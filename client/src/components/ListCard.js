@@ -60,26 +60,27 @@ function ListCard(props) {
     }
 
     function handleLikeList(event, id) {
-        // event.stopPropagation();
+        event.stopPropagation();
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
+
         store.likeList(idNamePair._id);
     }
     function handleDislikeList(event, id) {
-        // event.stopPropagation();
+        event.stopPropagation();
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
         store.dislikeList(idNamePair._id);
     }
     function handleOpenList(event, id) {
-        // event.stopPropagation();
+        event.stopPropagation();
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
 
-        // store.setCurrentList(id);
+        store.setCurrentList(id);
     }
 
     function handleKeyPress(event) {

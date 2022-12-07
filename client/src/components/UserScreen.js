@@ -54,18 +54,36 @@ export default function UserScreen() {
         store.sortByListens()
         handleMenuClose()
     }
+    function handleKeyPress(event) {
+        if (event.code === "Enter" && (store.getLeftComponent() == "listSearch")) {
+            // store.change(id, text);
+            // toggleEdit();
+
+            // console.log(event.target.value)
+            store.listSearch(event.target.value);
+            console.log(store.getLeftComponent());
+        }else if (event.code === "Enter" && (store.getLeftComponent() == "userSearch")) {
+            // store.change(id, text);
+            // toggleEdit();
+
+            // console.log(event.target.value)
+
+            store.userSearch(event.target.value);
+        }
+    }
     let leftComponent = <HomeScreen/>;
     if(store.currentList !== null){
         leftComponent = <WorkspaceScreen />
     }
     const handleHouseClick = () => {
         leftComponent = <HomeScreen />
+        store.homeScreen();
     }
-    const handleListSearch = () => {
-
+    const handleListSearchClick = (event) => {
+        store.listSearchIconClick();
     }
-    const handleUserSearch = () => {
-        
+    const handleUserSearchClick = () => {
+        store.userSearchIconClick();
     }
     const sortByMenu = (
         <Menu
@@ -91,6 +109,24 @@ export default function UserScreen() {
         </Menu>
     );
 
+    const currentLeftComponent = store.getLeftComponent()
+    let homeScreenColor = "black";
+    let listSearchColor = "white";
+    let userSearchColor = "white";
+    if(currentLeftComponent == "homeScreen"){
+        homeScreenColor = 'black';
+        listSearchColor = 'white';
+        userSearchColor = 'white';
+    }else if(currentLeftComponent == "listSearch"){
+        homeScreenColor = 'white';
+        listSearchColor = 'black';
+        userSearchColor = 'white';
+    }else if(currentLeftComponent == "userSearch"){
+        homeScreenColor = 'white';
+        listSearchColor = 'white';
+        userSearchColor = 'black';
+    }
+
     return(
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static" sx={{ height: "57px", display: { xs: 'none', md: 'flex' } }}>
@@ -103,18 +139,26 @@ export default function UserScreen() {
                     > */}
                         <Box>
                             <IconButton onClick={handleHouseClick} >
-                                <HomeIcon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }} />
+                                <HomeIcon style={{ textDecoration: 'none', color: homeScreenColor, height:"27px", width:"30px" }} />
                             </IconButton>
-                            <IconButton onClick={handleListSearch} >
-                                <Groups2Icon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }}/>
+                            <IconButton onClick={handleListSearchClick} >
+                                <Groups2Icon style={{ textDecoration: 'none', color: listSearchColor, height:"27px", width:"30px" }}/>
                             </IconButton>
-                            <IconButton onClick={handleUserSearch} >
-                                <PersonSearchIcon style={{ textDecoration: 'none', color: 'white', height:"27px", width:"30px" }}/>
+                            <IconButton onClick={handleUserSearchClick} >
+                                <PersonSearchIcon style={{ textDecoration: 'none', color: userSearchColor, height:"27px", width:"30px" }}/>
                             </IconButton>
                         </Box>
 
                         <Box sx={{transform:"translate(80%, 0%)"}}>
-                            <TextField id="outlined-basic" label="Search" size="small" variant="outlined" style={{bgcolor:'white', color: 'white', height:"55x", width:"300px" }} />
+                            <TextField 
+                                id="outlined-basic" 
+                                label="Search" 
+                                size="small" 
+                                variant="outlined" 
+                                style={{bgcolor:'white', color: 'white', height:"55x", width:"300px" }} 
+                                onKeyPress={handleKeyPress}
+                                // onChange={handleSearch}
+                            />
                         </Box>
 
                         <Box sx={{transform:"translate(620%, 9%)"}}>
@@ -133,9 +177,8 @@ export default function UserScreen() {
                 leftComponent
             }
             <Box sx={{right: "20%"}}>
-                        <YouTubePlayerScreen />
-                    </Box>
-            
+                <YouTubePlayerScreen />
+            </Box>
             <Box>
                 <Statusbar />
             </Box>
