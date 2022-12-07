@@ -716,6 +716,15 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.listSearch = function(searchRequirement){
+        if(searchRequirement === ""){
+            storeReducer({
+                type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+                payload: {
+                    idNamePairs: [],
+                    leftSide: "listSearch"
+                }
+            });
+        }
         async function asyncListSearch() {
             let response = await api.getPlaylists();
             if (response.data.success) {
@@ -743,6 +752,15 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.userSearch = function(searchRequirement){
+        if(searchRequirement === ""){
+            storeReducer({
+                type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+                payload: {
+                    idNamePairs: [],
+                    leftSide: "userSearch"
+                }
+            });
+        }
         async function asyncUserSearch() {
             let response = await api.getPlaylists();
             if (response.data.success) {

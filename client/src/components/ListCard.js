@@ -117,7 +117,7 @@ function ListCard(props) {
     // }
     username += idNamePair.ownerUsername;
 
-    let cardListensInfo = "Listens: ";
+    let cardListensInfo = "Listens: " + idNamePair.listens;
     let cardElement =
         <ListItem
             id={idNamePair._id}
@@ -146,6 +146,10 @@ function ListCard(props) {
             </Box>
             <Box sx={{ p: 1, flexGrow: 1 }} style={{fontSize: '13pt' }}>
                 {cardPublishInfo}
+                <Box sx={{ p: 0, flexGrow: 1 }} style={{fontSize: '13pt' }}>
+                    {cardListensInfo}
+                </Box>
+                
             </Box>
             </Box>
             

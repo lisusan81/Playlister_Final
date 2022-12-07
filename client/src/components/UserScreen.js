@@ -181,7 +181,7 @@ export default function UserScreen() {
             {
                 leftComponent
             }
-            <Box sx={{right: "20%"}}>
+            <Box>
                 <YouTubePlayerScreen />
             </Box>
             <Box>

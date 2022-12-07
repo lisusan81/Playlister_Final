@@ -1,9 +1,23 @@
 import React from 'react';
 import YouTube from 'react-youtube';
+import { GlobalStoreContext } from '../store'
+import { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
+import { TabContext } from '@mui/lab';
+import {TabList} from '@mui/lab';
+import {TabPanel} from '@mui/lab';
+import { IconButton, Tab } from '@mui/material';
+
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import StopIcon from '@mui/icons-material/Stop';
+
 
 
 export default function YouTubePlayerScreen() {
+    const { store } = useContext(GlobalStoreContext);
+    const [playingSong, setPlayingSong] = useState("youTube");
     // THIS EXAMPLE DEMONSTRATES HOW TO DYNAMICALLY MAKE A
     // YOUTUBE PLAYER AND EMBED IT IN YOUR SITE. IT ALSO
     // DEMONSTRATES HOW TO IMPLEMENT A PLAYLIST THAT MOVES
@@ -78,6 +92,29 @@ export default function YouTubePlayerScreen() {
         }
     }
 
+    // let youTubeTabValue = "youTube";
+    function handleChange(event,newValue) {
+        // if(youTubeTabValue === "youTube"){
+        //     youTubeTabValue = "comments"
+        // }else{
+        //     youTubeTabValue = "youTube"
+        // }
+        event.stopPropagation();
+        setPlayingSong(newValue);
+
+    }
+    function handlePlayPreviousSong(){
+
+    }
+    function handlePause(){
+
+    }
+    function handlePlay(){
+
+    }
+    function handlePlayNextSong(){
+
+    }
     return (
         <div id="youTubeScreen">
             {/* <YouTube
@@ -85,18 +122,37 @@ export default function YouTubePlayerScreen() {
                 opts={playerOptions}
                 onReady={onPlayerReady}
                 onStateChange={onPlayerStateChange} /> */}
-            {/* <TabContext value={value}>
+            <TabContext value={playingSong}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <TabList onChange={handleChange} aria-label="lab API tabs example">
-                    <Tab label="Item One" value="1" />
-                    <Tab label="Item Two" value="2" />
-                    <Tab label="Item Three" value="3" />
+                        <Tab label="youTube" value="youTube" />
+                        <Tab label="comments" value="comments" />
                     </TabList>
                 </Box>
-                <TabPanel value="1">Item One</TabPanel>
-                <TabPanel value="2">Item Two</TabPanel>
-                <TabPanel value="3">Item Three</TabPanel>
-            </TabContext>   */}
+                <TabPanel value="youTube">
+                    {/* <YouTube
+                        videoId={playlist[currentSong]}
+                        opts={playerOptions}
+                        onReady={onPlayerReady}
+                        onStateChange={onPlayerStateChange} 
+                    /> */}
+                    <Box style={{transform:"translate(12%,0%)"}}>
+                        <IconButton onClick={handlePlayPreviousSong} >
+                            <SkipPreviousIcon style={{fontSize:'30pt'}}/>
+                        </IconButton>
+                        <IconButton onClick={handlePause}>
+                            <StopIcon style={{fontSize:'30pt'}} />
+                        </IconButton>
+                        <IconButton onClick={handlePlay}>
+                            <PlayArrowIcon style={{fontSize:'30pt'}}/>
+                        </IconButton>
+                        <IconButton onClick={handlePlayNextSong}>
+                            <SkipNextIcon style={{fontSize:'30pt'}}/>
+                        </IconButton>
+                    </Box>
+                </TabPanel>
+                <TabPanel value="comments">Comments</TabPanel>
+            </TabContext>
         </div>
         )
 }
