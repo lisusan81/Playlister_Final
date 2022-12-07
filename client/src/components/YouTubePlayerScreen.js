@@ -1,5 +1,7 @@
 import React from 'react';
 import YouTube from 'react-youtube';
+import Box from '@mui/material/Box';
+
 
 export default function YouTubePlayerScreen() {
     // THIS EXAMPLE DEMONSTRATES HOW TO DYNAMICALLY MAKE A
@@ -39,8 +41,9 @@ export default function YouTubePlayerScreen() {
         currentSong++;
         currentSong = currentSong % playlist.length;
     }
-
+    let player;
     function onPlayerReady(event) {
+        player = event.target
         loadAndPlayCurrentSong(event.target);
         event.target.playVideo();
     }
@@ -77,11 +80,23 @@ export default function YouTubePlayerScreen() {
 
     return (
         <div id="youTubeScreen">
-            <YouTube
+            {/* <YouTube
                 videoId={playlist[currentSong]}
                 opts={playerOptions}
                 onReady={onPlayerReady}
-                onStateChange={onPlayerStateChange} />
+                onStateChange={onPlayerStateChange} /> */}
+            {/* <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList onChange={handleChange} aria-label="lab API tabs example">
+                    <Tab label="Item One" value="1" />
+                    <Tab label="Item Two" value="2" />
+                    <Tab label="Item Three" value="3" />
+                    </TabList>
+                </Box>
+                <TabPanel value="1">Item One</TabPanel>
+                <TabPanel value="2">Item Two</TabPanel>
+                <TabPanel value="3">Item Three</TabPanel>
+            </TabContext>   */}
         </div>
         )
 }

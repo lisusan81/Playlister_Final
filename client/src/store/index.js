@@ -350,7 +350,7 @@ function GlobalStoreContextProvider(props) {
         date.setMonth(0,1);
         console.log(date)
 
-        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, date, 0, 0, 0);
+        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, 0, 0, 0);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
             tps.clearAllTransactions();
@@ -513,7 +513,8 @@ function GlobalStoreContextProvider(props) {
         const id = store.currentList._id;
         const date = new Date();
         console.log(date);
-        const currentDate = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
+        const currentDate = date.toJSON().substring(0,10);;
+        console.log(currentDate);
 
         async function updateList(id) {
             let response = await api.getPlaylistById(id);
@@ -522,7 +523,7 @@ function GlobalStoreContextProvider(props) {
                 
                 
                 playlist.isPublished = true;
-                playlist.publishDate = date;
+                playlist.publishDate = currentDate;
 
                 response = await api.updatePlaylistById(playlist._id, playlist);
                 if (response.data.success) {
