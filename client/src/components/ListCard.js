@@ -109,7 +109,7 @@ function ListCard(props) {
     if(idNamePair.isPublished){
         // const date = idNamePair.publishDate;
         // console.log(typeof date);
-        cardPublishInfo += idNamePair.publishDate;
+        cardPublishInfo += idNamePair.publishDate.toString().substring(0,10);
     }
     let username = "By: "
     // if(auth.loggedIn){
@@ -132,7 +132,7 @@ function ListCard(props) {
             <Box>
             <Box sx={{ p: 1, flexGrow: 1 }}>
                 {idNamePair.name}
-                <IconButton onClick={handleToggleEdit} aria-label='edit'>
+                <IconButton onClick={handleToggleEdit} aria-label='edit' disabled={idNamePair.isPublished}>
                     <EditIcon style={{fontSize:'30pt'}} />
                 </IconButton>
                 <IconButton onClick={(event) => {

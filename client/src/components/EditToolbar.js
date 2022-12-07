@@ -34,7 +34,7 @@ function EditToolbar() {
         store.publishList();
     }
     function handleDuplicate() {
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        store.duplicateList();
     }
     return (
         <div id="edit-toolbar">

@@ -54,6 +54,10 @@ export default function UserScreen() {
         store.sortByListens()
         handleMenuClose()
     }
+    function handleSortByPublish(){
+        store.sortByPublish()
+        handleMenuClose()
+    }
     function handleKeyPress(event) {
         if (event.code === "Enter" && (store.getLeftComponent() == "listSearch")) {
             // store.change(id, text);
@@ -102,7 +106,7 @@ export default function UserScreen() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleSortByName}>Name (A-Z)</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Publish Date (Newest)</MenuItem>
+            <MenuItem onClick={handleSortByPublish}>Publish Date (Newest)</MenuItem>
             <MenuItem onClick={handleSortByListens}>Listens (High-Low)</MenuItem>
             <MenuItem onClick={handleSortByLikes}>Likes (High-Low)</MenuItem>
             <MenuItem onClick={handleSortByDislikes}>Dislikes (High-Low)</MenuItem>
@@ -129,7 +133,7 @@ export default function UserScreen() {
 
     return(
         <Box sx={{flexGrow: 1}}>
-            <AppBar position="static" sx={{ height: "57px", display: { xs: 'none', md: 'flex' } }}>
+            <AppBar position="static" sx={{ height: "58px", display: { xs: 'none', md: 'flex' } }}>
                 <Toolbar>
                     {/* <Typography                        
                         variant="h4"
@@ -138,6 +142,7 @@ export default function UserScreen() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     > */}
                         <Box>
+                            
                             <IconButton onClick={handleHouseClick} >
                                 <HomeIcon style={{ textDecoration: 'none', color: homeScreenColor, height:"27px", width:"30px" }} />
                             </IconButton>

@@ -344,7 +344,13 @@ function GlobalStoreContextProvider(props) {
         let newListName = "Untitled" + (store.idNamePairs.length + 1);
         console.log("TYPE OF FALSE " + typeof false );
         console.log("TYPE OF EMPTY " + typeof "" );
-        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, "NULL", 0, 0, 0);
+
+        const date = new Date();
+        date.setFullYear(2021);
+        date.setMonth(0,1);
+        console.log(date)
+
+        const response = await api.createPlaylist(newListName, [], auth.user.email, auth.user.username, false, date, 0, 0, 0);
         console.log("createNewList response: " + response);
         if (response.status === 201) {
             tps.clearAllTransactions();
@@ -515,7 +521,7 @@ function GlobalStoreContextProvider(props) {
                 
                 
                 playlist.isPublished = true;
-                playlist.publishDate = currentDate;
+                playlist.publishDate = date;
 
                 response = await api.updatePlaylistById(playlist._id, playlist);
                 if (response.data.success) {
@@ -659,6 +665,14 @@ function GlobalStoreContextProvider(props) {
         });
     }
 
+    store.sortByPublish = function() {
+        store.idNamePairs.sort(function(a,b) {return (a.publishDate < b.publishDate) ? 1 : ((b.publishDate < a.publishDate) ? -1 : 0);} );
+        storeReducer({
+            type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
+            payload: store.idNamePairs
+        });
+    }
+
     store.homeScreen = function() {
         storeReducer({
             type: GlobalStoreActionType.SET_LEFT_COMPONENT,
@@ -747,6 +761,12 @@ function GlobalStoreContextProvider(props) {
 
     store.getLeftComponent = function() {
         return store.leftComponent;
+    }
+
+    store.duplicateList = function(){
+        const listToCopy = store.currentList;
+
+        
     }
 
     // THIS FUNCTION REMOVES THE SONG AT THE index LOCATION
