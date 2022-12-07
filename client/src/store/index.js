@@ -624,7 +624,7 @@ function GlobalStoreContextProvider(props) {
     }
 
     store.sortByName = function() {
-        store.idNamePairs.sort(function(a,b) {return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0);} );
+        store.idNamePairs.sort(function(a,b) {return (a.name.toLowerCase() > b.name.toLowerCase()) ? 1 : ((b.name.toLowerCase() > a.name.toLowerCase()) ? -1 : 0);} );
         
         storeReducer({
             type: GlobalStoreActionType.LOAD_ID_NAME_PAIRS,
