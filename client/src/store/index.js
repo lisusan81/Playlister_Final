@@ -477,7 +477,7 @@ function GlobalStoreContextProvider(props) {
         }
         asyncSetCurrentList(id);
     }
-
+   
     store.returnListById = function(id) {
         console.log("ID OF LIST TO PUBLISH " + id);
 
@@ -548,11 +548,18 @@ function GlobalStoreContextProvider(props) {
                 playlist.likes += 1;
 
                 async function updateWithNewLikes(playlist){
-                    response = await api.updatePlaylistById(playlist._id, playlist);
+                    response = await api.updateAnyPlaylistById(playlist._id, playlist);
                     console.log(response);
                     if (response.data.success) {
-                        
-                        store.loadIdNamePairs();
+                        console.log(response.data)
+                        // storeReducer({
+                        //     type: GlobalStoreActionType.SET_LEFT_COMPONENT,
+                        //     payload: {
+                        //         leftSide: "listSearch",
+                        //         idNamePairs: store.idNamePairs
+                        //     }    
+                        // });
+                        store.loadIdNamePairs()
                     // history.push("/playlist/" + playlist._id);
                     }
                     console.log(response.data);
@@ -566,14 +573,14 @@ function GlobalStoreContextProvider(props) {
 
     store.dislikeList = function(id) {
         async function updateList(id) {
-            let response = await api.getPlaylistById(id);
+            let response = await api.getAnyPlaylistById(id);
             if (response.data.success) {
                 let playlist = response.data.playlist;
                 
                 playlist.dislikes += 1;
 
                 async function updateWithNewDislikes(playlist){
-                    response = await api.updatePlaylistById(playlist._id, playlist);
+                    response = await api.updateAnyPlaylistById(playlist._id, playlist);
                     console.log(response);
                     if (response.data.success) {
                         
