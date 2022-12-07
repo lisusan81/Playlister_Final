@@ -38,11 +38,17 @@ export const createPlaylist = (newListName, newSongs, userEmail, userUsername, i
 }
 export const deletePlaylistById = (id) => api.delete(`/playlist/${id}`)
 export const getPlaylistById = (id) => api.get(`/playlist/${id}`)
-// export const getAnyPlaylistById = (id) => api.get(`/playlistany/${id}`)
+export const getAnyPlaylistById = (id) => api.get(`/playlistany/${id}`)
 export const getPlaylistPairs = () => api.get(`/playlistpairs/`)
 export const getPlaylists = () => api.get(`/playlists/`)
 export const updatePlaylistById = (id, playlist) => {
     return api.put(`/playlist/${id}`, {
+        // SPECIFY THE PAYLOAD
+        playlist : playlist
+    })
+}
+export const updateAnyPlaylistById = (id, playlist) => {
+    return api.put(`/anyplaylist/${id}`, {
         // SPECIFY THE PAYLOAD
         playlist : playlist
     })
@@ -52,9 +58,10 @@ const apis = {
     createPlaylist,
     deletePlaylistById,
     getPlaylistById,
-    // getAnyPlaylistById,
+    getAnyPlaylistById,
     getPlaylistPairs,
     updatePlaylistById,
+    updateAnyPlaylistById,
     getPlaylists
 }
 

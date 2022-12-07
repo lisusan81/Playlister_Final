@@ -541,7 +541,7 @@ function GlobalStoreContextProvider(props) {
 
     store.likeList = function(id) {
         async function updateList(id) {
-            let response = await api.getPlaylistById(id);
+            let response = await api.getAnyPlaylistById(id);
             if (response.data.success) {
                 let playlist = response.data.playlist;
                 
@@ -763,10 +763,31 @@ function GlobalStoreContextProvider(props) {
         return store.leftComponent;
     }
 
-    store.duplicateList = function(){
+    store.duplicateList = async function(){
         const listToCopy = store.currentList;
+        const newListName = listToCopy.name + "(1)";
+        const date = new Date();
+        date.setFullYear(2021);
+        date.setMonth(0,1);
+        console.log(date)
 
-        
+        const response = await api.createPlaylist(newListName, listToCopy.songs, auth.user.email, auth.user.username, false, date, 0, 0, 0);
+        console.log("createNewList response: " + response);
+        if (response.status === 201) {
+            tps.clearAllTransactions();
+            let newList = response.data.playlist;
+            storeReducer({
+                type: GlobalStoreActionType.CREATE_NEW_LIST,
+                payload: newList
+            }
+            );
+
+            // IF IT'S A VALID LIST THEN LET'S START EDITING IT
+            // history.push("/playlist/" + newList._id);
+        }
+        else {
+            console.log("API FAILED TO CREATE A NEW LIST");
+        }
     }
 
     // THIS FUNCTION REMOVES THE SONG AT THE index LOCATION
