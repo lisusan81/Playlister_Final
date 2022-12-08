@@ -36,6 +36,10 @@ export default function AppBanner() {
     const handleHouseClick = () => {
         store.closeCurrentList();
     }
+    // const handleGuestUser = () => {
+    //     auth.loginGuest("guest", "12345678");
+    //     handleMenuClose();
+    // }
 
     const menuId = 'primary-search-account-menu';
     const loggedOutMenu = (
@@ -56,6 +60,7 @@ export default function AppBanner() {
         >
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
+            <MenuItem><Link to='/'>Continue as Guest</Link></MenuItem>
         </Menu>
     );
     const loggedInMenu = 

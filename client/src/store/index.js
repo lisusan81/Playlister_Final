@@ -611,7 +611,7 @@ function GlobalStoreContextProvider(props) {
                     console.log(response);
                     if (response.data.success) {
                         
-                        store.loadIdNamePairs();
+                        // store.loadIdNamePairs();
                     // history.push("/playlist/" + playlist._id);
                     }
                     console.log(response.data);
@@ -649,7 +649,7 @@ function GlobalStoreContextProvider(props) {
                     console.log(response);
                     if (response.data.success) {
                         
-                        store.loadIdNamePairs();
+                        // store.loadIdNamePairs();
                     // history.push("/playlist/" + playlist._id);
                     }
                     console.log(response.data);

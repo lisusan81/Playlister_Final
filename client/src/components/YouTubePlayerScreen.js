@@ -14,6 +14,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import StopIcon from '@mui/icons-material/Stop';
+import ListItem from '@mui/material';
 
 
 
@@ -147,7 +148,7 @@ export default function YouTubePlayerScreen() {
     }
     function handlePlay(){
         player.playVideo();
-        // store.updateListens();
+        store.updateListens();
     }
     function handlePlayNextSong(){
         incSong();
@@ -221,12 +222,19 @@ export default function YouTubePlayerScreen() {
             // onChange={handleSearch}
         />
     }
-    console.log(store.currentList);
-    if (store.currentList !== null) {
-        commentSection = store.currentList.comments.map((index, pair) => (
-            <Box key={index}>
-                {pair.post}
-            </Box>
+    
+    if (store.currentList !== null && store.currentList.comments !== undefined) {
+        console.log(store.currentList.comments[0])
+        commentSection = store.currentList.comments.map((comment) => (
+            // <Box key={"comment-" +{index}}>
+            //     {pair.post}
+            // </Box>
+            <div className="eachComment">
+                {comment.username}
+                <br></br>
+                {comment.post}
+                <br></br>
+            </div>
         ))
             // <Box sx={{width: '100%', bgcolor: 'background.paper', mb:"20px" }}>
             // {

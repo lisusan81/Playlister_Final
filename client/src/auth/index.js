@@ -1,3 +1,4 @@
+import { getNativeSelectUtilityClasses } from "@mui/material";
 import React, { createContext, useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom'
 import api from './auth-request-api'
@@ -11,6 +12,8 @@ export const AuthActionType = {
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
     REGISTER_USER: "REGISTER_USER"
+    // LOGIN_GUEST: "LOGIN_GUEST",
+    // LOGOUT_GUEST: "LOGOUT_GUEST"
 }
 
 function AuthContextProvider(props) {
@@ -18,6 +21,7 @@ function AuthContextProvider(props) {
         user: null,
         loggedIn: false,
         errorMessage: null
+        // isGuest: false
     });
     const history = useHistory();
 
@@ -42,6 +46,14 @@ function AuthContextProvider(props) {
                     errorMessage: payload.errorMessage
                 })
             }
+            // case AuthActionType.LOGIN_GUEST: {
+            //     return setAuth({
+            //         user: payload.user,
+            //         loggedIn: payload.loggedIn,
+            //         errorMessage: payload.errorMessage,
+            //         isGuest: payload.isGuest
+            //     })
+            // }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user: null,
@@ -49,6 +61,14 @@ function AuthContextProvider(props) {
                     errorMessage: null
                 })
             }
+            // case AuthActionType.LOGOUT_GUEST: {
+            //     return setAuth({
+            //         user: null,
+            //         loggedIn: false,
+            //         errorMessage: null,
+            //         isGuest: false
+            //     })
+            // }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
@@ -73,6 +93,36 @@ function AuthContextProvider(props) {
             });
         }
     }
+    // auth.loginGuest = async function(email, password) {
+    //     try{
+    //         const response = await api.loginUser(email, password);
+    //         if (response.status === 200) {
+    //             authReducer({
+    //                 type: AuthActionType.LOGIN_GUEST,
+    //                 payload: {
+    //                     user: response.data.user,
+    //                     loggedIn: false,
+    //                     errorMessage: null,
+    //                     isGuest: true
+    //                 }
+    //             })
+    //             history.push("/");
+    //         }
+    //     } catch(error){
+    //         authReducer({
+    //             type: AuthActionType.LOGIN_USER,
+    //             payload: {
+    //                 user: auth.user,
+    //                 loggedIn: false,
+    //                 errorMessage: error.response.data.errorMessage,
+    //                 isGuest: null
+    //             }
+    //         })
+    //     }
+    //     console.log(auth.isGuest)
+    // }
+   
+
 
     auth.registerUser = async function(firstName, lastName, email, username, password, passwordVerify) {
         console.log("REGISTERING USER");

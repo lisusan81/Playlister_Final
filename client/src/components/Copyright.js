@@ -10,6 +10,8 @@ export default function Copyright(props) {
             </Link>{' '}
             {new Date().getFullYear()}
             {'.'}
+            <br></br>
+            {'Credit to: Susan Li'}
         </Typography>
     );
 }
