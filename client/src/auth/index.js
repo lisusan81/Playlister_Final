@@ -11,8 +11,8 @@ export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
-    REGISTER_USER: "REGISTER_USER"
-    // LOGIN_GUEST: "LOGIN_GUEST",
+    REGISTER_USER: "REGISTER_USER",
+    LOGIN_GUEST: "LOGIN_GUEST",
     // LOGOUT_GUEST: "LOGOUT_GUEST"
 }
 
@@ -20,8 +20,8 @@ function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
         loggedIn: false,
-        errorMessage: null
-        // isGuest: false
+        errorMessage: null,
+        isGuest: false
     });
     const history = useHistory();
 
@@ -46,14 +46,14 @@ function AuthContextProvider(props) {
                     errorMessage: payload.errorMessage
                 })
             }
-            // case AuthActionType.LOGIN_GUEST: {
-            //     return setAuth({
-            //         user: payload.user,
-            //         loggedIn: payload.loggedIn,
-            //         errorMessage: payload.errorMessage,
-            //         isGuest: payload.isGuest
-            //     })
-            // }
+            case AuthActionType.LOGIN_GUEST: {
+                return setAuth({
+                    user: payload.user,
+                    loggedIn: payload.loggedIn,
+                    errorMessage: payload.errorMessage,
+                    isGuest: payload.isGuest
+                })
+            }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user: null,
@@ -93,34 +93,34 @@ function AuthContextProvider(props) {
             });
         }
     }
-    // auth.loginGuest = async function(email, password) {
-    //     try{
-    //         const response = await api.loginUser(email, password);
-    //         if (response.status === 200) {
-    //             authReducer({
-    //                 type: AuthActionType.LOGIN_GUEST,
-    //                 payload: {
-    //                     user: response.data.user,
-    //                     loggedIn: false,
-    //                     errorMessage: null,
-    //                     isGuest: true
-    //                 }
-    //             })
-    //             history.push("/");
-    //         }
-    //     } catch(error){
-    //         authReducer({
-    //             type: AuthActionType.LOGIN_USER,
-    //             payload: {
-    //                 user: auth.user,
-    //                 loggedIn: false,
-    //                 errorMessage: error.response.data.errorMessage,
-    //                 isGuest: null
-    //             }
-    //         })
-    //     }
-    //     console.log(auth.isGuest)
-    // }
+    auth.loginGuest = async function(email, password) {
+        try{
+            const response = await api.loginUser(email, password);
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.LOGIN_GUEST,
+                    payload: {
+                        user: response.data.user,
+                        loggedIn: true,
+                        errorMessage: null,
+                        isGuest: true
+                    }
+                })
+                history.push("/");
+            }
+        } catch(error){
+            authReducer({
+                type: AuthActionType.LOGIN_USER,
+                payload: {
+                    user: auth.user,
+                    loggedIn: false,
+                    errorMessage: error.response.data.errorMessage,
+                    isGuest: null
+                }
+            })
+        }
+        console.log(auth.isGuest)
+    }
    
 
 
@@ -192,6 +192,16 @@ function AuthContextProvider(props) {
             history.push("/");
         }
     }
+    // auth.logoutGuest = async function() {
+    //     const response = await api.logoutGuest();
+    //     if (response.status === 200) {
+    //         authReducer( {
+    //             type: AuthActionType.LOGOUT_USER,
+    //             payload: null
+    //         })
+    //         history.push("/");
+    //     }
+    // }
 
     auth.getUserInitials = function() {
         let initials = "";
@@ -201,6 +211,9 @@ function AuthContextProvider(props) {
         }
         console.log("user initials: " + initials);
         return initials;
+    }
+    auth.getIsGuest = function() {
+        return auth.isGuest;
     }
 
     return (

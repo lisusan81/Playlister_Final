@@ -131,6 +131,14 @@ export default function UserScreen() {
         userSearchColor = 'black';
     }
 
+    let homeIcon = ""
+    if((auth.user.email != "guest")){
+        homeIcon = 
+        <IconButton onClick={handleHouseClick}>
+            <HomeIcon style={{ textDecoration: 'none', color: homeScreenColor, height:"27px", width:"30px" }} />
+        </IconButton>
+    }
+
     return(
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static" sx={{ height: "58px", display: { xs: 'none', md: 'flex' } }}>
@@ -142,10 +150,8 @@ export default function UserScreen() {
                         sx={{ display: { xs: 'none', sm: 'block' } }}                        
                     > */}
                         <Box>
+                            {homeIcon}
                             
-                            <IconButton onClick={handleHouseClick} >
-                                <HomeIcon style={{ textDecoration: 'none', color: homeScreenColor, height:"27px", width:"30px" }} />
-                            </IconButton>
                             <IconButton onClick={handleListSearchClick} >
                                 <Groups2Icon style={{ textDecoration: 'none', color: listSearchColor, height:"27px", width:"30px" }}/>
                             </IconButton>

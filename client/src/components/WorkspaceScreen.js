@@ -10,6 +10,8 @@ import EditToolbar from './EditToolbar.js'
 import { Button } from '@mui/material'
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import CloseIcon from '@mui/icons-material/HighlightOff';
+import AuthContext from '../auth'
+
 
 /*
     This React component lets us edit a loaded list, which only
@@ -19,6 +21,7 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
 */
 function WorkspaceScreen() {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
     store.history = useHistory();
 
     function handleClose() {
@@ -41,7 +44,7 @@ function WorkspaceScreen() {
         toolbar =
             <div id="edit-toolbar">
                 <Button 
-                    // disabled={!store.canRedo()}
+                    disabled={(auth.user.email == "guest")}
                     id='duplicate-button'
                     onClick={handleDuplicate}
                     variant="contained">

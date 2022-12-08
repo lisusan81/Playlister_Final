@@ -65,14 +65,20 @@ function ListCard(props) {
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
 
-        store.likeList(idNamePair._id);
+        
+        if((auth.user.email != "guest")){
+            store.likeList(idNamePair._id);
+        }
     }
     function handleDislikeList(event, id) {
         event.stopPropagation();
         // let _id = event.target.id;
         // _id = ("" + _id).substring("delete-list-".length);
         // store.markListForDeletion(id);
-        store.dislikeList(idNamePair._id);
+        if((auth.user.email != "guest")){
+            store.dislikeList(idNamePair._id);
+        }
+        
     }
     function handleOpenList(event, id) {
         event.stopPropagation();

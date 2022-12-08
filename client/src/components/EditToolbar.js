@@ -8,6 +8,7 @@ import CloseIcon from '@mui/icons-material/HighlightOff';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import CopyAllIcon from '@mui/icons-material/CopyAll';
 import PublishIcon from '@mui/icons-material/Publish';
+import AuthContext from '../auth'
 
 /*
     This toolbar is a functional React component that
@@ -17,6 +18,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 */
 function EditToolbar() {
     const { store } = useContext(GlobalStoreContext);
+    const { auth } = useContext(AuthContext);
 
     function handleAddNewSong() {
         store.addNewSong();
@@ -34,8 +36,11 @@ function EditToolbar() {
         store.publishList();
     }
     function handleDuplicate() {
-        store.duplicateList();
+        if((auth.user.email != "guest")){
+            store.duplicateList();
+        }
     }
+    console.log((auth.user.email != "guest"));
     return (
         <div id="edit-toolbar">
             <Button
@@ -60,7 +65,7 @@ function EditToolbar() {
                     <RedoIcon />Redo
             </Button>
             <Button 
-                // disabled={!store.canRedo()}
+                disabled={(auth.user.email == "guest")}
                 id='duplicate-button'
                 onClick={handleDuplicate}
                 variant="contained">

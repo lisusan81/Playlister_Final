@@ -119,7 +119,7 @@ export default function YouTubePlayerScreen() {
     }
 
     function handleKeyPress(event) {
-        if (event.code === "Enter" && (auth.loggedIn)) {
+        if (event.code === "Enter" && (auth.loggedIn) && (auth.user.email != "guest")) {
             // store.change(id, text);
             // toggleEdit();
 
@@ -162,12 +162,17 @@ export default function YouTubePlayerScreen() {
     }
     console.log(store.currentList)
     
-    if(store.currentList !== null && store.currentList.publishDate !== undefined ){
-        console.log(store.currentList.name);
-        listName = store.currentList.name;
-        listSongNumber = "Song #: " + (songIndex+1);
-        listSongTitle = "Title: " + store.currentList.songs[songIndex].title;
-        listSongArtist = "Artist: " + store.currentList.songs[songIndex].artist;
+    if(store.currentList !== null && store.currentList.publishDate !== undefined && store.currentList.songs.length > 0){
+        if((songIndex + 1) > playlist.length){
+            setSongIndex(0)
+        }else{
+            console.log(store.currentList.name);
+            listName = store.currentList.name;
+            listSongNumber = "Song #: " + (songIndex+1);
+            listSongTitle = "Title: " + store.currentList.songs[songIndex].title;
+            listSongArtist = "Artist: " + store.currentList.songs[songIndex].artist;
+        }
+        
     }
     let youTubeTab = "No List Selected Yet";
     if(store.currentList !== null){

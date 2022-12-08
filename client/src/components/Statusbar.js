@@ -25,12 +25,15 @@ function Statusbar() {
 
     function handleCreateNewList() {
         store.createNewList();
+        
     }
 
     let text ="";
-    if (auth.loggedIn){
+    if (auth.loggedIn && (auth.user.email != "guest")){
         // text = store.currentList.name;
+        console.log(auth.user.email);
         text=
+        
             <Box>
                 <Fab sx={{transform:"translate(300%, -10%)"}} size="medium"
                     color="primary" 
