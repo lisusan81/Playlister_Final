@@ -297,6 +297,8 @@ updatePlaylist = async (req, res) => {
                     list.publishDate = body.playlist.publishDate;
                     list.likes = body.playlist.likes;
                     list.dislikes = body.playlist.dislikes;
+                    list.listens = body.playlist.listens;
+                    list.comments = body.playlist.comments;
                     // console.log(list.likes);
                     list
                         .save()
@@ -391,6 +393,8 @@ updateAnyPlaylist = async (req, res) => {
                 list.publishDate = body.playlist.publishDate;
                 list.likes = body.playlist.likes;
                 list.dislikes = body.playlist.dislikes;
+                list.listens = body.playlist.listens;
+                list.comments = body.playlist.comments;
                 // console.log(list.likes);
                 list
                     .save()

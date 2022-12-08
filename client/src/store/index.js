@@ -597,6 +597,69 @@ function GlobalStoreContextProvider(props) {
         }
         updateList(id);
     }
+    store.updateListens = function() {
+        const id = store.currentList._id;
+        async function updateList(id) {
+            let response = await api.getAnyPlaylistById(id);
+            if (response.data.success) {
+                let playlist = response.data.playlist;
+                
+                playlist.listens += 1;
+
+                async function updateWithNewDislikes(playlist){
+                    response = await api.updateAnyPlaylistById(playlist._id, playlist);
+                    console.log(response);
+                    if (response.data.success) {
+                        
+                        store.loadIdNamePairs();
+                    // history.push("/playlist/" + playlist._id);
+                    }
+                    console.log(response.data);
+                }
+                updateWithNewDislikes(playlist);
+                
+            }
+        }
+        updateList(id);
+    }
+
+    store.addComment = function(post, username) {
+        console.log(post);
+        console.log(username);
+        const id = store.currentList._id;
+        async function updateList(id) {
+            let response = await api.getAnyPlaylistById(id);
+            if (response.data.success) {
+                let playlist = response.data.playlist;
+                
+                let newComment = {
+                    post: post,
+                    username: username
+                };
+
+                console.log(newComment);
+                
+                playlist.comments.push(newComment);
+                console.log(playlist.comments)
+                // playlist.comments.post = post;
+                // playlist.comments.username = username;
+
+                async function updateWithNewDislikes(playlist){
+                    response = await api.updateAnyPlaylistById(playlist._id, playlist);
+                    console.log(response);
+                    if (response.data.success) {
+                        
+                        store.loadIdNamePairs();
+                    // history.push("/playlist/" + playlist._id);
+                    }
+                    console.log(response.data);
+                }
+                updateWithNewDislikes(playlist);
+                
+            }
+        }
+        updateList(id);
+    }
 
     store.getPlaylistSize = function() {
         return store.currentList.songs.length;

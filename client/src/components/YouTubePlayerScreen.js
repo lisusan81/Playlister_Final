@@ -7,6 +7,8 @@ import { TabContext } from '@mui/lab';
 import {TabList} from '@mui/lab';
 import {TabPanel} from '@mui/lab';
 import { IconButton, Tab } from '@mui/material';
+import { Icon, TextField } from '@mui/material'
+import AuthContext from '../auth'
 
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
@@ -16,22 +18,30 @@ import StopIcon from '@mui/icons-material/Stop';
 
 
 export default function YouTubePlayerScreen() {
+    const { auth } = useContext(AuthContext);
     const { store } = useContext(GlobalStoreContext);
     const [playingSong, setPlayingSong] = useState("youTube");
+    const [songIndex, setSongIndex] = useState(0);
     // THIS EXAMPLE DEMONSTRATES HOW TO DYNAMICALLY MAKE A
     // YOUTUBE PLAYER AND EMBED IT IN YOUR SITE. IT ALSO
     // DEMONSTRATES HOW TO IMPLEMENT A PLAYLIST THAT MOVES
     // FROM ONE SONG TO THE NEXT
 
     // THIS HAS THE YOUTUBE IDS FOR THE SONGS IN OUR PLAYLIST
-    let playlist = [
-        "mqmxkGjow1A",
-        "8RbXIMZmVv8",
-        "8UbNbor3OqQ"
-    ];
+    // let playlist = [
+    //     "mqmxkGjow1A",
+    //     "8RbXIMZmVv8",
+    //     "8UbNbor3OqQ"
+    // ];
+
+    let playlist = [];
+    if(store.currentList !== null && store.currentList.isPublished !== false){
+        playlist = store.currentList.songs.map((ele) => ele.youTubeId)
+    }
+    console.log(playlist);
 
     // THIS IS THE INDEX OF THE SONG CURRENTLY IN USE IN THE PLAYLIST
-    let currentSong = 0;
+    // let currentSong = 0;
 
     const playerOptions = {
         height: '390',
@@ -45,15 +55,30 @@ export default function YouTubePlayerScreen() {
     // THIS FUNCTION LOADS THE CURRENT SONG INTO
     // THE PLAYER AND PLAYS IT
     function loadAndPlayCurrentSong(player) {
-        let song = playlist[currentSong];
+        let song = playlist[songIndex];
         player.loadVideoById(song);
         player.playVideo();
+        
     }
 
     // THIS FUNCTION INCREMENTS THE PLAYLIST SONG TO THE NEXT ONE
-    function incSong() {
-        currentSong++;
-        currentSong = currentSong % playlist.length;
+    function incSong(event) {
+        // currentSong++;
+        // currentSong = currentSong % playlist.length;
+
+        setSongIndex((songIndex+1) % playlist.length)
+
+        // currentSong = currentSong + 1;
+        // currentSong = currentSong % playlist.length;
+    }
+    function decSong() {
+        // currentSong--;
+        // currentSong = currentSong % playlist.length;
+
+        if(songIndex != 0){
+            setSongIndex((songIndex-1) % playlist.length)
+        }
+        
     }
     let player;
     function onPlayerReady(event) {
@@ -92,6 +117,17 @@ export default function YouTubePlayerScreen() {
         }
     }
 
+    function handleKeyPress(event) {
+        if (event.code === "Enter" && (auth.loggedIn)) {
+            // store.change(id, text);
+            // toggleEdit();
+
+            console.log(event.target.value);
+            console.log(auth.user.username);
+            store.addComment(event.target.value, auth.user.username);
+        }
+    }
+
     // let youTubeTabValue = "youTube";
     function handleChange(event,newValue) {
         // if(youTubeTabValue === "youTube"){
@@ -104,17 +140,108 @@ export default function YouTubePlayerScreen() {
 
     }
     function handlePlayPreviousSong(){
-
+        decSong();
     }
     function handlePause(){
-
+        player.pauseVideo();
     }
     function handlePlay(){
-
+        player.playVideo();
+        // store.updateListens();
     }
     function handlePlayNextSong(){
-
+        incSong();
     }
+    let listName = "";
+    let listSongNumber = "";
+    let listSongTitle = "";
+    let listSongArtist = "";
+    if(store.currentList !== null && (store.currentList.songs.length === songIndex) && store.currentList.publishedDate !== undefined ){
+        setSongIndex(0);
+    }
+    console.log(store.currentList)
+    
+    if(store.currentList !== null && store.currentList.publishDate !== undefined ){
+        console.log(store.currentList.name);
+        listName = store.currentList.name;
+        listSongNumber = "Song #: " + (songIndex+1);
+        listSongTitle = "Title: " + store.currentList.songs[songIndex].title;
+        listSongArtist = "Artist: " + store.currentList.songs[songIndex].artist;
+    }
+    let youTubeTab = "No List Selected Yet";
+    if(store.currentList !== null){
+        youTubeTab = 
+        <Box>
+            <YouTube
+                videoId={playlist[songIndex]}
+                opts={playerOptions}
+                onReady={onPlayerReady}
+                onStateChange={onPlayerStateChange} 
+            />
+            
+            <Box style={{transform:"translate(12%,0%)"}}>
+                <IconButton onClick={handlePlayPreviousSong} >
+                    <SkipPreviousIcon style={{fontSize:'30pt'}}/>
+                </IconButton>
+                <IconButton onClick={handlePause}>
+                    <StopIcon style={{fontSize:'30pt'}} />
+                </IconButton>
+                <IconButton onClick={handlePlay}>
+                    <PlayArrowIcon style={{fontSize:'30pt'}}/>
+                </IconButton>
+                <IconButton onClick={handlePlayNextSong}>
+                    <SkipNextIcon style={{fontSize:'30pt'}}/>
+                </IconButton>
+            </Box>
+            <Box>
+                {listName}
+            </Box>
+            <Box>
+                {listSongNumber}
+            </Box>
+            <Box>
+                {listSongTitle}
+            </Box>
+            <Box>
+                {listSongArtist}
+            </Box>
+        </Box>
+    }
+    let commentSection = "";
+    let commentInputField = "";
+    if(store.currentList !== null){
+        commentInputField =
+        <TextField 
+            id="outlined-basic" 
+            label="Comment" 
+            size="small" 
+            variant="outlined" 
+            style={{bgcolor:'white', color: 'white', height:"55x", width:"300px" }} 
+            onKeyPress={handleKeyPress}
+            // onChange={handleSearch}
+        />
+    }
+    console.log(store.currentList);
+    if (store.currentList !== null) {
+        commentSection = store.currentList.comments.map((index, pair) => (
+            <Box key={index}>
+                {pair.post}
+            </Box>
+        ))
+            // <Box sx={{width: '100%', bgcolor: 'background.paper', mb:"20px" }}>
+            // {
+                
+                
+            // }
+            // </Box>;
+
+           
+    }
+
+        
+            
+    
+
     return (
         <div id="youTubeScreen">
             {/* <YouTube
@@ -135,7 +262,7 @@ export default function YouTubePlayerScreen() {
                         opts={playerOptions}
                         onReady={onPlayerReady}
                         onStateChange={onPlayerStateChange} 
-                    /> */}
+                    />
                     <Box style={{transform:"translate(12%,0%)"}}>
                         <IconButton onClick={handlePlayPreviousSong} >
                             <SkipPreviousIcon style={{fontSize:'30pt'}}/>
@@ -149,9 +276,16 @@ export default function YouTubePlayerScreen() {
                         <IconButton onClick={handlePlayNextSong}>
                             <SkipNextIcon style={{fontSize:'30pt'}}/>
                         </IconButton>
-                    </Box>
+                    </Box> */}
+                    {youTubeTab}
                 </TabPanel>
-                <TabPanel value="comments">Comments</TabPanel>
+                <TabPanel value="comments">
+                    {commentSection}
+                    <Box>
+                    {commentInputField}
+                    </Box>
+                        
+                </TabPanel>
             </TabContext>
         </div>
         )
